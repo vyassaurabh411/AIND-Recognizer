@@ -30,6 +30,12 @@ var/
 *.manifest
 *.spec
 
+# other supporting files
+*.xlsx
+*.jpg
+Lab_test.py
+
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
