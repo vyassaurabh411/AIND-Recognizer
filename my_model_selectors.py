@@ -68,16 +68,9 @@ class SelectorBIC(ModelSelector):
     Bayesian information criteria: BIC = -2 * logL + p * logN
     """
 
-    # def free_params(self, num_states, num_data_points):
-    #     return ( num_states ** 2 ) + ( 2 * num_states * num_data_points ) - 1
-
     def score_bic(self, log_likelihood, num_states, num_data_points):
         num_free_params = ( num_states ** 2 ) + ( 2 * num_states * num_data_points) - 1
         return (-2 * log_likelihood) + (num_free_params * np.log(num_data_points))
-
-    # def best_score_bic(self, score_bics):
-    #     # return minimum of the scores_bic i.e best BIC score
-    #     return min(score_bics, key = lambda x: x[0])
 
     def select(self):
         """ Select best model for self.this_word based on BIC score
@@ -89,11 +82,11 @@ class SelectorBIC(ModelSelector):
         score_bics = []
         for num_states in range(self.min_n_components, self.max_n_components + 1):
             try:
-                hmm_model = self.base_model(num_states)
-                log_likelihood = hmm_model.score(self.X, self.lengths)
+                model = self.base_model(num_states)
+                log_likelihood = model.score(self.X, self.lengths)
                 num_data_points = sum(self.lengths)
                 score_bic = self.score_bic(log_likelihood, num_states, num_data_points)
-                score_bics.append(tuple([score_bic, hmm_model]))
+                score_bics.append(tuple([score_bic, model]))
             except:
                 pass
         return min(score_bics, key = lambda x: x[0])[1] if score_bics else None
@@ -132,11 +125,9 @@ class SelectorDIC(ModelSelector):
                 log_likelihood_original_word = hmm_model.score(self.X, self.lengths)
                 models.append((log_likelihood_original_word, hmm_model))
 
-        # Note: Situation that may cause exception may be if have more parameters to fit
-        # than there are samples, so must catch exception when the model is invalid
         except Exception as e:
-            # logging.exception('DIC Exception occurred: ', e)
             pass
+
         for index, model in enumerate(models):
             log_likelihood_original_word, hmm_model = model
             score_dic = log_likelihood_original_word - np.mean(self.calc_log_likelihood_other_words(model, other_words))
@@ -148,13 +139,8 @@ class SelectorCV(ModelSelector):
     ''' select best model based on average log Likelihood of cross-validation folds
 
     '''
-    def calc_best_score_cv(self, score_cv):
-        # Max of list of lists comparing each item by value at index 0
-        return max(score_cv, key = lambda x: x[0])
-
     def select(self):
         warnings.filterwarnings("ignore", category=DeprecationWarning)
-        # num_splits = min(3, len(self.sequences))
         kfolds = KFold(n_splits = 3, shuffle = False, random_state = None)
         log_likelihoods = []
         score_cvs = []
@@ -163,14 +149,9 @@ class SelectorCV(ModelSelector):
             try:
                 # Check sufficient data to split using KFold
                 if len(self.sequences) > 2:
-                    # CV loop of breaking-down the sequence (training set) into "folds" where a fold
-                    # rotated out of the training set is tested by scoring for Cross-Validation (CV)
                     for train_index, test_index in kfolds.split(self.sequences):
-                        # Training sequences split using KFold are recombined
                         self.X, self.lengths = combine_sequences(train_index, self.sequences)
-                        # Test sequences split using KFold are recombined
                         X_test, lengths_test = combine_sequences(test_index, self.sequences)
-
                         hmm_model = self.base_model(num_states)
                         log_likelihood = hmm_model.score(X_test, lengths_test)
                 else:
@@ -178,8 +159,6 @@ class SelectorCV(ModelSelector):
                     log_likelihood = hmm_model.score(self.X, self.lengths)
 
                 log_likelihoods.append(log_likelihood)
-
-                # Find average Log Likelihood of CV fold
                 score_cvs_avg = np.mean(log_likelihoods)
                 score_cvs.append(tuple([score_cvs_avg, hmm_model]))
 
