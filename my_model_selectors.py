@@ -185,4 +185,4 @@ class SelectorCV(ModelSelector):
 
             except Exception as e:
                 pass
-        return max(score_cv, key = lambda x: x[0])[1] if score_cvs else None
+        return max(score_cvs, key = lambda x: x[0])[1] if score_cvs else None
