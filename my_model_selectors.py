@@ -68,16 +68,16 @@ class SelectorBIC(ModelSelector):
     Bayesian information criteria: BIC = -2 * logL + p * logN
     """
 
-    def free_params(self, num_states, num_data_points):
-        return ( num_states ** 2 ) + ( 2 * num_states * num_data_points ) - 1
+    # def free_params(self, num_states, num_data_points):
+    #     return ( num_states ** 2 ) + ( 2 * num_states * num_data_points ) - 1
 
     def score_bic(self, log_likelihood, num_states, num_data_points):
         num_free_params = ( num_states ** 2 ) + ( 2 * num_states * num_data_points) - 1
         return (-2 * log_likelihood) + (num_free_params * np.log(num_data_points))
 
-    def best_score_bic(self, score_bics):
-        # return minimum of the scores_bic i.e best BIC score
-        return min(score_bics, key = lambda x: x[0])
+    # def best_score_bic(self, score_bics):
+    #     # return minimum of the scores_bic i.e best BIC score
+    #     return min(score_bics, key = lambda x: x[0])
 
     def select(self):
         """ Select best model for self.this_word based on BIC score
@@ -92,12 +92,11 @@ class SelectorBIC(ModelSelector):
                 hmm_model = self.base_model(num_states)
                 log_likelihood = hmm_model.score(self.X, self.lengths)
                 num_data_points = sum(self.lengths)
-                # num_free_params = self.free_params(num_states, num_data_points)
                 score_bic = self.score_bic(log_likelihood, num_states, num_data_points)
                 score_bics.append(tuple([score_bic, hmm_model]))
             except:
                 pass
-        return self.best_score_bic(score_bics)[1] if score_bics else None
+        return min(score_bics, key = lambda x: x[0])[1] if score_bics else None
 
 
 class SelectorDIC(ModelSelector):
@@ -186,4 +185,4 @@ class SelectorCV(ModelSelector):
 
             except Exception as e:
                 pass
-        return self.calc_best_score_cv(score_cvs)[1] if score_cvs else None
+        return max(score_cv, key = lambda x: x[0])[1] if score_cvs else None

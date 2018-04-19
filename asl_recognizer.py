@@ -36,7 +36,7 @@
 # 
 # To start, let's set up the initial database and select an example set of features for the training set.  At the end of Part 1, you will create additional feature sets for experimentation. 
 
-# In[1]:
+# In[2]:
 
 import numpy as np
 import pandas as pd
@@ -48,7 +48,7 @@ print(asl.df.shape)
 asl.df.head() # displays the first five rows of the asl database, indexed by video and frame
 
 
-# In[2]:
+# In[3]:
 
 asl.df.ix[98,1]  # look at the data available for an individual frame
 
@@ -59,7 +59,7 @@ asl.df.ix[98,1]  # look at the data available for an individual frame
 # ##### Feature selection for training the model
 # The objective of feature selection when training a model is to choose the most relevant variables while keeping the model as simple as possible, thus reducing training time.  We can use the raw features already provided or derive our own and add columns to the pandas dataframe `asl.df` for selection. As an example, in the next cell a feature named `'grnd-ry'` is added. This feature is the difference between the right-hand y value and the nose y value, which serves as the "ground" right y value. 
 
-# In[3]:
+# In[4]:
 
 asl.df['grnd-ry'] = asl.df['right-y'] - asl.df['nose-y']
 asl.df.head()  # the new feature 'grnd-ry' is now in the frames dictionary
@@ -67,7 +67,7 @@ asl.df.head()  # the new feature 'grnd-ry' is now in the frames dictionary
 
 # ##### Try it!
 
-# In[4]:
+# In[5]:
 
 from asl_utils import test_features_tryit
 # TODO add df columns for 'grnd-rx', 'grnd-ly', 'grnd-lx' representing differences between hand and nose locations
@@ -79,7 +79,7 @@ asl.df['grnd-lx'] = asl.df['left-x'] - asl.df['nose-x']
 test_features_tryit(asl)
 
 
-# In[5]:
+# In[6]:
 
 # collect the features into a list
 features_ground = ['grnd-rx','grnd-ry','grnd-lx','grnd-ly']
@@ -90,21 +90,21 @@ features_ground = ['grnd-rx','grnd-ry','grnd-lx','grnd-ly']
 # ##### Build the training set
 # Now that we have a feature list defined, we can pass that list to the `build_training` method to collect the features for all the words in the training set.  Each word in the training set has multiple examples from various videos.  Below we can see the unique words that have been loaded into the training set:
 
-# In[6]:
+# In[7]:
 
 training = asl.build_training(features_ground)
 print("Training words: {}".format(training.words))
 training.get_all_sequences()
 
 
-# In[7]:
+# In[8]:
 
 training.get_all_Xlengths()
 
 
 # The training data in `training` is an object of class `WordsData` defined in the `asl_data` module.  in addition to the `words` list, data can be accessed with the `get_all_sequences`, `get_all_Xlengths`, `get_word_sequences`, and `get_word_Xlengths` methods. We need the `get_word_Xlengths` method to train multiple sequences with the `hmmlearn` library.  In the following example, notice that there are two lists; the first is a concatenation of all the sequences(the X portion) and the second is a list of the sequence lengths(the Lengths portion).
 
-# In[8]:
+# In[9]:
 
 training.get_word_Xlengths('CHOCOLATE')
 
@@ -112,7 +112,7 @@ training.get_word_Xlengths('CHOCOLATE')
 # ###### More feature sets
 # So far we have a simple feature set that is enough to get started modeling.  However, we might get better results if we manipulate the raw values a bit more, so we will go ahead and set up some other options now for experimentation later.  For example, we could normalize each speaker's range of motion with grouped statistics using [Pandas stats](http://pandas.pydata.org/pandas-docs/stable/api.html#api-dataframe-stats) functions and [pandas groupby](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html).  Below is an example for finding the means of all speaker subgroups.
 
-# In[9]:
+# In[10]:
 
 df_means = asl.df.groupby('speaker').mean()
 df_means
@@ -120,7 +120,7 @@ df_means
 
 # To select a mean that matches by speaker, use the pandas [map](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.map.html) method:
 
-# In[10]:
+# In[11]:
 
 asl.df['left-x-mean']= asl.df['speaker'].map(df_means['left-x'])
 asl.df.head()
@@ -128,7 +128,7 @@ asl.df.head()
 
 # ##### Try it!
 
-# In[11]:
+# In[12]:
 
 from asl_utils import test_std_tryit
 # TODO Create a dataframe named `df_std` with standard deviations grouped by speaker
@@ -159,7 +159,7 @@ test_std_tryit(df_std)
 #         - adding additional deltas
 # 
 
-# In[12]:
+# In[13]:
 
 # TODO add features for normalized by speaker values of left, right, x, y
 # Name these 'norm-rx', 'norm-ry', 'norm-lx', and 'norm-ly'
@@ -176,7 +176,7 @@ for feat_new, feat_orig in zip(features_norm, features_orig):
 asl.df.head()    
 
 
-# In[13]:
+# In[14]:
 
 # TODO add features for polar coordinate values where the nose is the origin
 # Name these 'polar-rr', 'polar-rtheta', 'polar-lr', and 'polar-ltheta'
@@ -192,7 +192,7 @@ asl.df['polar-ltheta'] = np.arctan2(grnd_lx, grnd_ly)
 features_polar = ['polar-rr', 'polar-rtheta', 'polar-lr', 'polar-ltheta']
 
 
-# In[14]:
+# In[15]:
 
 # TODO add features for left, right, x, y differences by one time step, i.e. the "delta" values discussed in the lecture
 # Name these 'delta-rx', 'delta-ry', 'delta-lx', and 'delta-ly'
@@ -206,7 +206,7 @@ for index, feature in enumerate(features_delta):
 asl.df.head()
 
 
-# In[15]:
+# In[16]:
 
 # TODO add features of your own design, which may be a combination of the above or something else
 # Name these whatever you would like
@@ -237,7 +237,7 @@ features_custom = features_delta_norm_grnd + features_polar
 # Run the following unit tests as a sanity check on the defined "ground", "norm", "polar", and 'delta"
 # feature sets.  The test simply looks for some valid values but is not exhaustive.  However, the project should not be submitted if these tests don't pass.
 
-# In[16]:
+# In[17]:
 
 import unittest
 # import numpy as np
@@ -277,7 +277,7 @@ unittest.TextTestRunner().run(suite)
 # ##### Train a single word
 # Now that we have built a training set with sequence data, we can "train" models for each word.  As a simple starting example, we train a single word using Gaussian hidden Markov models (HMM).   By using the `fit` method during training, the [Baum-Welch Expectation-Maximization](https://en.wikipedia.org/wiki/Baum%E2%80%93Welch_algorithm) (EM) algorithm is invoked iteratively to find the best estimate for the model *for the number of hidden states specified* from a group of sample seequences. For this example, we *assume* the correct number of hidden states is 3, but that is just a guess.  How do we know what the "best" number of states for training is?  We will need to find some model selection technique to choose the best parameter.
 
-# In[17]:
+# In[18]:
 
 import warnings
 from hmmlearn.hmm import GaussianHMM
@@ -299,7 +299,7 @@ print("logL = {}".format(logL))
 
 # The HMM model has been trained and information can be pulled from the model, including means and variances for each feature and hidden state.  The [log likelihood](http://math.stackexchange.com/questions/892832/why-we-consider-log-likelihood-instead-of-likelihood-in-gaussian-distribution) for any individual sample or group of samples can also be calculated with the `score` method.
 
-# In[18]:
+# In[19]:
 
 def show_model_stats(word, model):
     print("Number of states trained in model for {} is {}".format(word, model.n_components))    
@@ -316,7 +316,7 @@ show_model_stats(demoword, model)
 # ##### Try it!
 # Experiment by changing the feature set, word, and/or num_hidden_states values in the next cell to see changes in values.  
 
-# In[19]:
+# In[20]:
 
 my_testword = 'CHOCOLATE'
 model, logL = train_a_word(my_testword, 3, features_ground) # Experiment here with different parameters
@@ -324,7 +324,7 @@ show_model_stats(my_testword, model)
 print("logL = {}".format(logL))
 
 
-# In[20]:
+# In[21]:
 
 # experimenting with different feaures sets and states
 feature_set = [features_polar, features_delta_norm_grnd, features_custom]
@@ -340,12 +340,12 @@ for i, features in enumerate(feature_set):
 # ##### Visualize the hidden states
 # We can plot the means and variances for each state and feature.  Try varying the number of states trained for the HMM model and examine the variances.  Are there some models that are "better" than others?  How can you tell?  We would like to hear what you think in the classroom online.
 
-# In[26]:
+# In[22]:
 
 get_ipython().magic('matplotlib inline')
 
 
-# In[25]:
+# In[23]:
 
 import math
 from matplotlib import (cm, pyplot as plt, mlab)
@@ -383,7 +383,7 @@ visualize(my_testword, model)
 # 
 # You will train each word in the training set with a range of values for the number of hidden states, and then score these alternatives with the model selector, choosing the "best" according to each strategy. The simple case of training with a constant value for `n_components` can be called using the provided `SelectorConstant` subclass as follow:
 
-# In[27]:
+# In[24]:
 
 from my_model_selectors import SelectorConstant
 
@@ -396,7 +396,7 @@ print("Number of states trained in model for {} is {}".format(word, model.n_comp
 # ##### Cross-validation folds
 # If we simply score the model with the Log Likelihood calculated from the feature sequences it has been trained on, we should expect that more complex models will have higher likelihoods. However, that doesn't tell us which would have a better likelihood score on unseen data.  The model will likely be overfit as complexity is added.  To estimate which topology model is better using only the training data, we can compare scores using cross-validation.  One technique for cross-validation is to break the training set into "folds" and rotate which fold is left out of training.  The "left out" fold scored.  This gives us a proxy method of finding the best model to use on "unseen data". In the following example, a set of word sequences is broken into three folds using the [scikit-learn Kfold](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html) class object. When you implement `SelectorCV`, you will use this technique.
 
-# In[28]:
+# In[25]:
 
 from sklearn.model_selection import KFold
 
@@ -421,20 +421,20 @@ for cv_train_idx, cv_test_idx in split_method.split(word_sequences):
 # 
 # **Tip:** The `hmmlearn` library may not be able to train or score all models.  Implement try/except contructs as necessary to eliminate non-viable models from consideration.
 
-# In[29]:
+# In[26]:
 
 words_to_train = ['FISH', 'BOOK', 'VEGETABLE', 'FUTURE', 'JOHN']
 import timeit
 
 
-# In[30]:
+# In[27]:
 
 # autoreload for automatically reloading changes made in my_model_selectors and my_recognizer
 get_ipython().magic('load_ext autoreload')
 get_ipython().magic('autoreload 2')
 
 
-# In[32]:
+# In[28]:
 
 # TODO: Implement SelectorCV in my_model_selector.py
 from my_model_selectors import SelectorCV
@@ -453,7 +453,7 @@ for word in words_to_train:
         print("Training failed for {}".format(word))
 
 
-# In[33]:
+# In[29]:
 
 # TODO: Implement SelectorBIC in module my_model_selectors.py
 from my_model_selectors import SelectorBIC
@@ -472,7 +472,7 @@ for word in words_to_train:
         print("Training failed for {}".format(word))
 
 
-# In[34]:
+# In[30]:
 
 # TODO: Implement SelectorDIC in module my_model_selectors.py
 from my_model_selectors import SelectorDIC
@@ -505,7 +505,7 @@ for word in words_to_train:
 # ### Model Selector Unit Testing
 # Run the following unit tests as a sanity check on the implemented model selectors.  The test simply looks for valid interfaces  but is not exhaustive. However, the project should not be submitted if these tests don't pass.
 
-# In[35]:
+# In[ ]:
 
 from asl_test_model_selectors import TestSelectors
 suite = unittest.TestLoader().loadTestsFromModule(TestSelectors())
@@ -521,7 +521,7 @@ unittest.TextTestRunner().run(suite)
 # 
 # 
 
-# In[36]:
+# In[ ]:
 
 from my_model_selectors import SelectorConstant
 
@@ -546,7 +546,7 @@ print("Number of word models returned = {}".format(len(models)))
 # - the internal dictionary keys are the index of the test word rather than the word itself
 # - the getter methods are `get_all_sequences`, `get_all_Xlengths`, `get_item_sequences` and `get_item_Xlengths`
 
-# In[37]:
+# In[ ]:
 
 test_set = asl.build_test(features_ground)
 print("Number of test set items: {}".format(test_set.num_items))
@@ -559,7 +559,7 @@ print("Number of test set sentences: {}".format(len(test_set.sentences_index)))
 # 
 # **Tip:** The hmmlearn library may not be able to train or score all models.  Implement try/except contructs as necessary to eliminate non-viable models from consideration.
 
-# In[38]:
+# In[ ]:
 
 # TODO implement the recognize method in my_recognizer
 from my_recognizer import recognize
@@ -569,7 +569,7 @@ from my_model_selectors import SelectorDIC
 from my_model_selectors import SelectorCV
 
 
-# In[57]:
+# In[ ]:
 
 # TODO Choose a feature set and model selector
 features = features_custom # change as needed
@@ -585,7 +585,7 @@ probabilities, guesses = recognize(models, test_set)
 show_errors(guesses, test_set)
 
 
-# In[58]:
+# In[ ]:
 
 # TODO Choose a feature set and model selector
 features = features_delta_norm_grnd # change as needed
@@ -601,7 +601,7 @@ probabilities, guesses = recognize(models, test_set)
 show_errors(guesses, test_set)
 
 
-# In[59]:
+# In[ ]:
 
 # TODO Choose a feature set and model selector
 # TODO Recognize the test set and display the result with the show_errors method
@@ -645,7 +645,7 @@ show_errors(guesses, test_set)
 # ### Recognizer Unit Tests
 # Run the following unit tests as a sanity check on the defined recognizer.  The test simply looks for some valid values but is not exhaustive. However, the project should not be submitted if these tests don't pass.
 
-# In[60]:
+# In[ ]:
 
 from asl_test_recognizer import TestRecognize
 suite = unittest.TestLoader().loadTestsFromModule(TestRecognize())
@@ -665,7 +665,7 @@ unittest.TextTestRunner().run(suite)
 # The recognizer you implemented in Part 3 is equivalent to a "0-gram" SLM.  Improve the WER with the SLM data provided with the data set in the link above using "1-gram", "2-gram", and/or "3-gram" statistics. The `probabilities` data you've already calculated will be useful and can be turned into a pandas DataFrame if desired (see next cell).  
 # Good luck!  Share your results with the class!
 
-# In[61]:
+# In[ ]:
 
 # create a DataFrame of log likelihoods for the test word items
 df_probs = pd.DataFrame(data=probabilities)
