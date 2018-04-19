@@ -18,25 +18,25 @@ def recognize(models: dict, test_set: SinglesData):
    """
     warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-    def calc_best_score(word_log_likelihoods):
-        return max(word_log_likelihoods, key = word_log_likelihoods.get)
+    def best_score(log_likelihoods):
+        return max(log_likelihoods, key = log_likelihoods.get)
 
     probabilities = []
     guesses = []
-    for word_id in range(0, len(test_set.get_all_Xlengths())):
-        current_word_feature_lists_sequences, current_sequences_length = test_set.get_item_Xlengths(word_id)
-        word_log_likelihoods = {}
+    for word_index in range(0, len(test_set.get_all_Xlengths())):
+        word_feature, length = test_set.get_item_Xlengths(word_index)
+        log_likelihoods = {}
 
         # Calculate Log Likelihood score for each word
         for word, model in models.items():
             try:
-                score = model.score(current_word_feature_lists_sequences, current_sequences_length)
-                word_log_likelihoods[word] = score
+                score = model.score(word_feature, length)
+                log_likelihoods[word] = score
             except:
-                word_log_likelihoods[word] = float("-inf")
+                log_likelihoods[word] = float("-inf")
                 continue
 
-        probabilities.append(word_log_likelihoods)
-        guesses.append(calc_best_score(word_log_likelihoods))
+        probabilities.append(log_likelihoods)
+        guesses.append(best_score(log_likelihoods))
 
     return probabilities, guesses

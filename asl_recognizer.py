@@ -505,7 +505,7 @@ for word in words_to_train:
 # ### Model Selector Unit Testing
 # Run the following unit tests as a sanity check on the implemented model selectors.  The test simply looks for valid interfaces  but is not exhaustive. However, the project should not be submitted if these tests don't pass.
 
-# In[40]:
+# In[41]:
 
 from asl_test_model_selectors import TestSelectors
 suite = unittest.TestLoader().loadTestsFromModule(TestSelectors())
@@ -521,7 +521,7 @@ unittest.TextTestRunner().run(suite)
 # 
 # 
 
-# In[38]:
+# In[42]:
 
 from my_model_selectors import SelectorConstant
 
@@ -546,7 +546,7 @@ print("Number of word models returned = {}".format(len(models)))
 # - the internal dictionary keys are the index of the test word rather than the word itself
 # - the getter methods are `get_all_sequences`, `get_all_Xlengths`, `get_item_sequences` and `get_item_Xlengths`
 
-# In[ ]:
+# In[43]:
 
 test_set = asl.build_test(features_ground)
 print("Number of test set items: {}".format(test_set.num_items))
@@ -559,7 +559,7 @@ print("Number of test set sentences: {}".format(len(test_set.sentences_index)))
 # 
 # **Tip:** The hmmlearn library may not be able to train or score all models.  Implement try/except contructs as necessary to eliminate non-viable models from consideration.
 
-# In[ ]:
+# In[44]:
 
 # TODO implement the recognize method in my_recognizer
 from my_recognizer import recognize
@@ -569,7 +569,7 @@ from my_model_selectors import SelectorDIC
 from my_model_selectors import SelectorCV
 
 
-# In[ ]:
+# In[46]:
 
 # TODO Choose a feature set and model selector
 features = features_custom # change as needed
@@ -585,7 +585,7 @@ probabilities, guesses = recognize(models, test_set)
 show_errors(guesses, test_set)
 
 
-# In[ ]:
+# In[47]:
 
 # TODO Choose a feature set and model selector
 features = features_delta_norm_grnd # change as needed
@@ -601,7 +601,7 @@ probabilities, guesses = recognize(models, test_set)
 show_errors(guesses, test_set)
 
 
-# In[ ]:
+# In[48]:
 
 # TODO Choose a feature set and model selector
 # TODO Recognize the test set and display the result with the show_errors method
@@ -645,7 +645,7 @@ show_errors(guesses, test_set)
 # ### Recognizer Unit Tests
 # Run the following unit tests as a sanity check on the defined recognizer.  The test simply looks for some valid values but is not exhaustive. However, the project should not be submitted if these tests don't pass.
 
-# In[ ]:
+# In[50]:
 
 from asl_test_recognizer import TestRecognize
 suite = unittest.TestLoader().loadTestsFromModule(TestRecognize())
@@ -665,7 +665,7 @@ unittest.TextTestRunner().run(suite)
 # The recognizer you implemented in Part 3 is equivalent to a "0-gram" SLM.  Improve the WER with the SLM data provided with the data set in the link above using "1-gram", "2-gram", and/or "3-gram" statistics. The `probabilities` data you've already calculated will be useful and can be turned into a pandas DataFrame if desired (see next cell).  
 # Good luck!  Share your results with the class!
 
-# In[ ]:
+# In[51]:
 
 # create a DataFrame of log likelihoods for the test word items
 df_probs = pd.DataFrame(data=probabilities)

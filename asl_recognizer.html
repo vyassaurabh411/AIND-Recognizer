@@ -30337,7 +30337,7 @@ Training complete for JOHN with 15 states with time 17.272332583495867 seconds
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">asl_test_model_selectors</span> <span class="k">import</span> <span class="n">TestSelectors</span>
@@ -30359,7 +30359,7 @@ Training complete for JOHN with 15 states with time 17.272332583495867 seconds
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>....
 ----------------------------------------------------------------------
-Ran 4 tests in 42.039s
+Ran 4 tests in 38.575s
 
 OK
 </pre>
@@ -30367,7 +30367,7 @@ OK
 </div>
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[40]:</div>
+<div class="prompt output_prompt">Out[41]:</div>
 
 
 
@@ -30395,7 +30395,7 @@ OK
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">my_model_selectors</span> <span class="k">import</span> <span class="n">SelectorConstant</span>
@@ -30453,7 +30453,7 @@ OK
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_set</span> <span class="o">=</span> <span class="n">asl</span><span class="o">.</span><span class="n">build_test</span><span class="p">(</span><span class="n">features_ground</span><span class="p">)</span>
@@ -30462,6 +30462,23 @@ OK
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Number of test set items: 178
+Number of test set sentences: 40
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -30480,7 +30497,7 @@ OK
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO implement the recognize method in my_recognizer</span>
@@ -30498,7 +30515,7 @@ OK
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO Choose a feature set and model selector</span>
@@ -30519,10 +30536,73 @@ OK
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----------------------------------
+Features: [&#39;delta-norm-grnd-rx&#39;, &#39;delta-norm-grnd-ry&#39;, &#39;delta-norm-grnd-lx&#39;, &#39;delta-norm-grnd-ly&#39;, &#39;polar-rr&#39;, &#39;polar-rtheta&#39;, &#39;polar-lr&#39;, &#39;polar-ltheta&#39;]
+Model Selector: &lt;class &#39;my_model_selectors.SelectorDIC&#39;&gt;
+
+**** WER = 0.42696629213483145
+Total correct: 102 out of 178
+Video  Recognized                                                    Correct
+=====================================================================================================
+    2: JOHN *BOOK HOMEWORK                                           JOHN WRITE HOMEWORK
+    7: JOHN *CAR GO CAN                                              JOHN CAN GO CAN
+   12: JOHN CAN *JOHN CAN                                            JOHN CAN GO CAN
+   21: JOHN *HOMEWORK *JOHN *FUTURE *BUY *CAR *FUTURE *MARY          JOHN FISH WONT EAT BUT CAN EAT CHICKEN
+   25: JOHN LIKE IX IX IX                                            JOHN LIKE IX IX IX
+   28: JOHN *WHO IX IX IX                                            JOHN LIKE IX IX IX
+   30: JOHN LIKE *MARY IX *MARY                                      JOHN LIKE IX IX IX
+   36: MARY *WHO *YESTERDAY *GIVE *MARY *MARY                        MARY VEGETABLE KNOW IX LIKE CORN1
+   40: JOHN *GO *APPLE MARY *MARY                                    JOHN IX THINK MARY LOVE
+   43: JOHN *JOHN BUY HOUSE                                          JOHN MUST BUY HOUSE
+   50: *JOHN *SEE BUY CAR *JOHN                                      FUTURE JOHN BUY CAR SHOULD
+   54: JOHN SHOULD *FUTURE BUY HOUSE                                 JOHN SHOULD NOT BUY HOUSE
+   57: JOHN *JOHN VISIT MARY                                         JOHN DECIDE VISIT MARY
+   67: JOHN FUTURE *JOHN BUY HOUSE                                   JOHN FUTURE NOT BUY HOUSE
+   71: JOHN *VISIT *GIVE1 MARY                                       JOHN WILL VISIT MARY
+   74: JOHN *MARY VISIT MARY                                         JOHN NOT VISIT MARY
+   77: *JOHN BLAME MARY                                              ANN BLAME MARY
+   84: *JOHN *JOHN *VISIT BOOK                                       IX-1P FIND SOMETHING-ONE BOOK
+   89: JOHN IX *IX *IX IX NEW *BOOK                                  JOHN IX GIVE MAN IX NEW COAT
+   90: JOHN *IX IX SOMETHING-ONE WOMAN *COAT                         JOHN GIVE IX SOMETHING-ONE WOMAN BOOK
+   92: JOHN *IX IX *IX WOMAN BOOK                                    JOHN GIVE IX SOMETHING-ONE WOMAN BOOK
+  100: POSS NEW CAR BREAK-DOWN                                       POSS NEW CAR BREAK-DOWN
+  105: JOHN *VEGETABLE                                               JOHN LEG
+  107: JOHN *IX *ARRIVE *GO *JOHN                                    JOHN POSS FRIEND HAVE CANDY
+  108: *JOHN *BOOK                                                   WOMAN ARRIVE
+  113: *JOHN CAR *IX *JOHN *JOHN                                     IX CAR BLUE SUE BUY
+  119: *MARY *BUY1 IX CAR *IX                                        SUE BUY IX CAR BLUE
+  122: JOHN *GIVE1 BOOK                                              JOHN READ BOOK
+  139: JOHN *BUY1 WHAT *JOHN BOOK                                    JOHN BUY WHAT YESTERDAY BOOK
+  142: JOHN BUY YESTERDAY WHAT BOOK                                  JOHN BUY YESTERDAY WHAT BOOK
+  158: LOVE JOHN WHO                                                 LOVE JOHN WHO
+  167: JOHN IX *IX LOVE MARY                                         JOHN IX SAY LOVE MARY
+  171: *MARY MARY BLAME                                              JOHN MARY BLAME
+  174: *JOHN *GIVE1 GIVE1 *WHO *JOHN                                 PEOPLE GROUP GIVE1 JANA TOY
+  181: JOHN ARRIVE                                                   JOHN ARRIVE
+  184: *IX BOY *GIVE1 TEACHER APPLE                                  ALL BOY GIVE TEACHER APPLE
+  189: JOHN *JOHN *VISIT BOX                                         JOHN GIVE GIRL BOX
+  193: JOHN *IX *APPLE BOX                                           JOHN GIVE GIRL BOX
+  199: *JOHN *HOMEWORK WHO                                           LIKE CHOCOLATE WHO
+  201: JOHN *GIVE *WOMAN *WOMAN BUY HOUSE                            JOHN TELL MARY IX-1P BUY HOUSE
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO Choose a feature set and model selector</span>
@@ -30543,10 +30623,73 @@ OK
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----------------------------------
+Features: [&#39;delta-norm-grnd-rx&#39;, &#39;delta-norm-grnd-ry&#39;, &#39;delta-norm-grnd-lx&#39;, &#39;delta-norm-grnd-ly&#39;]
+Model Selector: &lt;class &#39;my_model_selectors.SelectorBIC&#39;&gt;
+
+**** WER = 0.5842696629213483
+Total correct: 74 out of 178
+Video  Recognized                                                    Correct
+=====================================================================================================
+    2: JOHN *IX HOMEWORK                                             JOHN WRITE HOMEWORK
+    7: JOHN *PEOPLE *GIVE1 *TEACHER                                  JOHN CAN GO CAN
+   12: JOHN CAN *VISIT CAN                                           JOHN CAN GO CAN
+   21: JOHN FISH *GO1 *BROCCOLI *CAR *VISIT *MARY *WHO               JOHN FISH WONT EAT BUT CAN EAT CHICKEN
+   25: JOHN *IX IX IX IX                                             JOHN LIKE IX IX IX
+   28: JOHN *MARY *MARY IX IX                                        JOHN LIKE IX IX IX
+   30: JOHN *CORN *SEARCH-FOR IX IX                                  JOHN LIKE IX IX IX
+   36: *TOY1 *VIDEOTAPE KNOW *GIVE2 *HERE *JOHN                      MARY VEGETABLE KNOW IX LIKE CORN1
+   40: *CHINA IX *WHO *CORN1 *HIT                                    JOHN IX THINK MARY LOVE
+   43: JOHN *IX *FINISH HOUSE                                        JOHN MUST BUY HOUSE
+   50: *JOHN *VEGETABLE BUY CAR *MARY                                FUTURE JOHN BUY CAR SHOULD
+   54: JOHN *IX *SUE BUY HOUSE                                       JOHN SHOULD NOT BUY HOUSE
+   57: JOHN *MARY *IX MARY                                           JOHN DECIDE VISIT MARY
+   67: JOHN *JOHN *HIT BUY HOUSE                                     JOHN FUTURE NOT BUY HOUSE
+   71: JOHN *TEACHER VISIT *CAR                                      JOHN WILL VISIT MARY
+   74: JOHN *MARY *VIDEOTAPE *JOHN                                   JOHN NOT VISIT MARY
+   77: *JOHN BLAME MARY                                              ANN BLAME MARY
+   84: *JOHN *NEW *IX *NEW-YORK                                      IX-1P FIND SOMETHING-ONE BOOK
+   89: JOHN *JOHN *IX *IX *ALL *CAR COAT                             JOHN IX GIVE MAN IX NEW COAT
+   90: *MARY *YESTERDAY *JOHN *IX WOMAN BOOK                         JOHN GIVE IX SOMETHING-ONE WOMAN BOOK
+   92: JOHN *IX IX *IX WOMAN *VISIT                                  JOHN GIVE IX SOMETHING-ONE WOMAN BOOK
+  100: *JOHN NEW CAR *MANY                                           POSS NEW CAR BREAK-DOWN
+  105: *ANN *JOHN                                                    JOHN LEG
+  107: JOHN *WHAT FRIEND HAVE *MARY                                  JOHN POSS FRIEND HAVE CANDY
+  108: *JOHN ARRIVE                                                  WOMAN ARRIVE
+  113: *JOHN CAR *WHO *MARY *BUY1                                    IX CAR BLUE SUE BUY
+  119: *MARY *BUY1 *HERE CAR *GO                                     SUE BUY IX CAR BLUE
+  122: JOHN *BOY *HERE                                               JOHN READ BOOK
+  139: JOHN BUY WHAT *WHO *STOLEN                                    JOHN BUY WHAT YESTERDAY BOOK
+  142: JOHN BUY *GIVE *BOOK *BROCCOLI                                JOHN BUY YESTERDAY WHAT BOOK
+  158: *BOY *HERE WHO                                                LOVE JOHN WHO
+  167: *IX-1P *ALL *IX *FRIEND *HERE                                 JOHN IX SAY LOVE MARY
+  171: *VEGETABLE MARY BLAME                                         JOHN MARY BLAME
+  174: *CAR GROUP GIVE1 *MARY *WANT                                  PEOPLE GROUP GIVE1 JANA TOY
+  181: *MARY ARRIVE                                                  JOHN ARRIVE
+  184: ALL BOY *GIVE1 TEACHER *SEE                                   ALL BOY GIVE TEACHER APPLE
+  189: JOHN *BILL *VIDEOTAPE *BOOK                                   JOHN GIVE GIRL BOX
+  193: JOHN *IX *CORN BOX                                            JOHN GIVE GIRL BOX
+  199: *JOHN *SELL WHO                                               LIKE CHOCOLATE WHO
+  201: JOHN *WHO *WHO *CHOCOLATE BUY HOUSE                           JOHN TELL MARY IX-1P BUY HOUSE
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO Choose a feature set and model selector</span>
@@ -30566,6 +30709,69 @@ OK
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----------------------------------
+Features: [&#39;delta-norm-grnd-rx&#39;, &#39;delta-norm-grnd-ry&#39;, &#39;delta-norm-grnd-lx&#39;, &#39;delta-norm-grnd-ly&#39;, &#39;polar-rr&#39;, &#39;polar-rtheta&#39;, &#39;polar-lr&#39;, &#39;polar-ltheta&#39;, &#39;norm-rx&#39;, &#39;norm-ry&#39;, &#39;norm-lx&#39;, &#39;norm-ly&#39;]
+Model Selector: &lt;class &#39;my_model_selectors.SelectorCV&#39;&gt;
+
+**** WER = 0.5112359550561798
+Total correct: 87 out of 178
+Video  Recognized                                                    Correct
+=====================================================================================================
+    2: JOHN WRITE *ARRIVE                                            JOHN WRITE HOMEWORK
+    7: JOHN *HAVE GO *HAVE                                           JOHN CAN GO CAN
+   12: JOHN CAN *WHAT CAN                                            JOHN CAN GO CAN
+   21: JOHN *ARRIVE *SOMETHING-ONE *MARY *CAR *CAR EAT *MARY         JOHN FISH WONT EAT BUT CAN EAT CHICKEN
+   25: JOHN LIKE IX IX IX                                            JOHN LIKE IX IX IX
+   28: JOHN *IX IX IX IX                                             JOHN LIKE IX IX IX
+   30: JOHN LIKE *MARY *LIKE *GO                                     JOHN LIKE IX IX IX
+   36: MARY *WHO *GIRL *VISIT *MARY *LIKE                            MARY VEGETABLE KNOW IX LIKE CORN1
+   40: JOHN *VISIT *CORN MARY *MARY                                  JOHN IX THINK MARY LOVE
+   43: JOHN *JOHN BUY HOUSE                                          JOHN MUST BUY HOUSE
+   50: *FRANK *FRANK BUY CAR *MARY                                   FUTURE JOHN BUY CAR SHOULD
+   54: JOHN SHOULD *MARY BUY HOUSE                                   JOHN SHOULD NOT BUY HOUSE
+   57: *MARY *JOHN VISIT MARY                                        JOHN DECIDE VISIT MARY
+   67: JOHN *POSS *FUTURE BUY HOUSE                                  JOHN FUTURE NOT BUY HOUSE
+   71: JOHN *FUTURE *BLAME MARY                                      JOHN WILL VISIT MARY
+   74: *GO *VISIT VISIT MARY                                         JOHN NOT VISIT MARY
+   77: *JOHN BLAME *LOVE                                             ANN BLAME MARY
+   84: *MARY *ARRIVE SOMETHING-ONE BOOK                              IX-1P FIND SOMETHING-ONE BOOK
+   89: *MARY *SOMETHING-ONE *IX *IX IX NEW *BREAK-DOWN               JOHN IX GIVE MAN IX NEW COAT
+   90: JOHN *SOMETHING-ONE IX *IX WOMAN *LOVE                        JOHN GIVE IX SOMETHING-ONE WOMAN BOOK
+   92: JOHN *WOMAN *WOMAN *WOMAN WOMAN BOOK                          JOHN GIVE IX SOMETHING-ONE WOMAN BOOK
+  100: POSS NEW CAR BREAK-DOWN                                       POSS NEW CAR BREAK-DOWN
+  105: *FRANK *FRANK                                                 JOHN LEG
+  107: *MARY *SOMETHING-ONE *HAVE HAVE *MARY                         JOHN POSS FRIEND HAVE CANDY
+  108: *LOVE ARRIVE                                                  WOMAN ARRIVE
+  113: IX CAR *SUE *JOHN *BOX                                        IX CAR BLUE SUE BUY
+  119: *MARY *BUY1 *HAVE *HAVE *HAVE                                 SUE BUY IX CAR BLUE
+  122: JOHN *HOUSE BOOK                                              JOHN READ BOOK
+  139: JOHN *ARRIVE WHAT YESTERDAY *LOVE                             JOHN BUY WHAT YESTERDAY BOOK
+  142: *FRANK BUY YESTERDAY WHAT BOOK                                JOHN BUY YESTERDAY WHAT BOOK
+  158: LOVE *MARY *CORN                                              LOVE JOHN WHO
+  167: JOHN *VISIT *VISIT LOVE MARY                                  JOHN IX SAY LOVE MARY
+  171: JOHN *JOHN BLAME                                              JOHN MARY BLAME
+  174: *GIVE1 *GIVE1 GIVE1 *GIRL *BLAME                              PEOPLE GROUP GIVE1 JANA TOY
+  181: *SUE *BOX                                                     JOHN ARRIVE
+  184: *IX BOY *GIVE1 TEACHER APPLE                                  ALL BOY GIVE TEACHER APPLE
+  189: JOHN *VISIT *CORN BOX                                         JOHN GIVE GIRL BOX
+  193: JOHN *SOMETHING-ONE *YESTERDAY BOX                            JOHN GIVE GIRL BOX
+  199: *LOVE CHOCOLATE *MARY                                         LIKE CHOCOLATE WHO
+  201: JOHN *GIVE1 *WOMAN *WOMAN BUY HOUSE                           JOHN TELL MARY IX-1P BUY HOUSE
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -30606,7 +30812,7 @@ OK
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">asl_test_recognizer</span> <span class="k">import</span> <span class="n">TestRecognize</span>
@@ -30615,6 +30821,37 @@ OK
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>..
+----------------------------------------------------------------------
+Ran 2 tests in 25.566s
+
+OK
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[50]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;unittest.runner.TextTestResult run=2 errors=0 failures=0&gt;</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -30639,7 +30876,7 @@ Good luck!  Share your results with the class!</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create a DataFrame of log likelihoods for the test word items</span>
@@ -30648,6 +30885,175 @@ Good luck!  Share your results with the class!</p>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[51]:</div>
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ALL</th>
+      <th>ANN</th>
+      <th>APPLE</th>
+      <th>ARRIVE</th>
+      <th>BILL</th>
+      <th>BLAME</th>
+      <th>BLUE</th>
+      <th>BOOK</th>
+      <th>BORROW</th>
+      <th>BOX</th>
+      <th>...</th>
+      <th>VIDEOTAPE</th>
+      <th>VISIT</th>
+      <th>WANT</th>
+      <th>WHAT</th>
+      <th>WHO</th>
+      <th>WILL</th>
+      <th>WOMAN</th>
+      <th>WONT</th>
+      <th>WRITE</th>
+      <th>YESTERDAY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-3412.088036</td>
+      <td>-1.265406e+05</td>
+      <td>-1813.965184</td>
+      <td>-436.962543</td>
+      <td>-1624.422894</td>
+      <td>-358.660950</td>
+      <td>-4411.425491</td>
+      <td>-1079.672834</td>
+      <td>-12009.622653</td>
+      <td>-749.758550</td>
+      <td>...</td>
+      <td>-1549.095223</td>
+      <td>-247.281155</td>
+      <td>-201080.650201</td>
+      <td>-489.590434</td>
+      <td>-244.029686</td>
+      <td>-2304.101890</td>
+      <td>-878.743833</td>
+      <td>-787.953025</td>
+      <td>-8978.224586</td>
+      <td>-267.405863</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-10446.606689</td>
+      <td>-1.579329e+05</td>
+      <td>-3344.493479</td>
+      <td>-143.125189</td>
+      <td>-5387.857279</td>
+      <td>-224.253810</td>
+      <td>-12121.866158</td>
+      <td>-127.027098</td>
+      <td>-5559.488549</td>
+      <td>-580.148016</td>
+      <td>...</td>
+      <td>-318.992349</td>
+      <td>-232.855457</td>
+      <td>-37047.439294</td>
+      <td>-492.505942</td>
+      <td>-400.866620</td>
+      <td>-7866.163377</td>
+      <td>-595.490053</td>
+      <td>-1041.501678</td>
+      <td>-79.174997</td>
+      <td>-478.199475</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-14296.547604</td>
+      <td>-4.475263e+05</td>
+      <td>-5086.311405</td>
+      <td>-310.781058</td>
+      <td>-7106.114519</td>
+      <td>-481.414675</td>
+      <td>-17364.912622</td>
+      <td>-774.748017</td>
+      <td>-8563.021407</td>
+      <td>-1023.977732</td>
+      <td>...</td>
+      <td>-1302.336868</td>
+      <td>-422.747012</td>
+      <td>-105560.308705</td>
+      <td>-947.051437</td>
+      <td>-1112.945912</td>
+      <td>-11291.732532</td>
+      <td>-1430.123957</td>
+      <td>-1337.482566</td>
+      <td>-5036.683902</td>
+      <td>-945.542430</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-2247.452868</td>
+      <td>-1.565188e+06</td>
+      <td>-747.618608</td>
+      <td>-775.233697</td>
+      <td>-2521.352701</td>
+      <td>-452.073314</td>
+      <td>-386.200369</td>
+      <td>-1279.801872</td>
+      <td>-45477.494067</td>
+      <td>-852.720381</td>
+      <td>...</td>
+      <td>-2126.237232</td>
+      <td>-109.830505</td>
+      <td>-923896.822068</td>
+      <td>-629.186226</td>
+      <td>-314.222990</td>
+      <td>-12860.922638</td>
+      <td>-274.933227</td>
+      <td>-2401.841724</td>
+      <td>-26569.648995</td>
+      <td>-591.609672</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-2442.011926</td>
+      <td>-2.269785e+05</td>
+      <td>-1015.808269</td>
+      <td>-102.424849</td>
+      <td>-3079.259664</td>
+      <td>-102.039838</td>
+      <td>-2746.174396</td>
+      <td>-177.821988</td>
+      <td>-1842.070340</td>
+      <td>-138.505615</td>
+      <td>...</td>
+      <td>-429.247663</td>
+      <td>-88.479467</td>
+      <td>-134031.052294</td>
+      <td>-108.776225</td>
+      <td>-327.957998</td>
+      <td>-6744.988417</td>
+      <td>-518.917122</td>
+      <td>-472.167284</td>
+      <td>-4600.573557</td>
+      <td>-299.802260</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 112 columns</p>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 
