@@ -505,7 +505,7 @@ for word in words_to_train:
 # ### Model Selector Unit Testing
 # Run the following unit tests as a sanity check on the implemented model selectors.  The test simply looks for valid interfaces  but is not exhaustive. However, the project should not be submitted if these tests don't pass.
 
-# In[39]:
+# In[40]:
 
 from asl_test_model_selectors import TestSelectors
 suite = unittest.TestLoader().loadTestsFromModule(TestSelectors())
